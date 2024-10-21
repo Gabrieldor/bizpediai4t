@@ -105,7 +105,7 @@ def perform_search():
 
     links = driver.find_elements(By.XPATH, "//a[@class='groupbox_large_darkblue_link']")
     for name in links[:len(links)-3]:
-        print(name)
+        print(name.text)
 
 # Get state value from provided state name
 def get_state_value(state_name):
