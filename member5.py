@@ -96,13 +96,16 @@ def perform_search():
     ActionChains(driver).move_to_element(search_button).click().perform()
     random_sleep()
 
-    onmouseover = "this.className = 'listview_item_over';"
     try:
-        company = driver.find_elements(By.XPATH, f'//tr[@onmouseover="{onmouseover}"]')
+        company = driver.find_element(By.XPATH, f'//tr[@class="listview_item_out"]')
         ActionChains(driver).move_to_element(company).click().perform()
     except:
         print("failed")
     random_sleep()
+
+    links = driver.find_elements(By.XPATH, "//a[@class='groupbox_large_darkblue_link']")
+    for name in links[:len(links)-3]:
+        print(name)
 
 # Get state value from provided state name
 def get_state_value(state_name):
