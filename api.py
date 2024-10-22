@@ -113,6 +113,8 @@ def get_quote(_j):
         ActionChains(driver).move_to_element(company).click().perform()
         random_sleep()
 
+
+        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.XPATH, "//a[@class='groupbox_large_darkblue_link']")))  # Corrected ID for password field)
         links = driver.find_elements(By.XPATH, "//a[@class='groupbox_large_darkblue_link']")
         output = []
         for name in links:
