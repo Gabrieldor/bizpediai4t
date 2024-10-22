@@ -15,7 +15,7 @@ api = FastAPI()
 
 @api.post("/api/v1/bizapedia/quote")
 async def quote(request: Request):
-    return await get_quote(request.json())
+    return get_quote(await request.json())
 
 def get_state_code(state_name):
     state_codes = {
