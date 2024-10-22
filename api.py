@@ -185,5 +185,6 @@ def get_quote(_j):
         return state_mapping.get(state_name, "0")  # Default to empty value if not found
 
     login()
-    return perform_search()
     driver.quit()
+    return perform_search()
+    
