@@ -14,8 +14,8 @@ from asyncio import run
 api = FastAPI()
 
 @api.post("/api/v1/bizapedia/quote")
-async def quote(request: Request):
-    return get_quote(await request.json())
+def quote(request: Request):
+    return get_quote(run(request.json()))
 
 def get_state_code(state_name):
     state_codes = {
@@ -34,8 +34,8 @@ def get_state_code(state_name):
     return state_codes.get(state_name, "Invalid state name")
 
 def get_quote(_j):
-    company_name = _j["company_name"]
-    state_name = get_state_code(_j["state_code"])
+    company_name = _j["company"]["name"]
+    state_name = get_state_code(_j["company"]["owner"]["address"]["state_code"])
 
     # Configure options to use a real browser
     chrome_options = Options()
@@ -113,8 +113,6 @@ def get_quote(_j):
         ActionChains(driver).move_to_element(company).click().perform()
         random_sleep()
 
-
-        #WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.XPATH, "//a[@class='groupbox_large_darkblue_link']")))  # Corrected ID for password field)
         links = driver.find_elements(By.XPATH, "//a[@class='groupbox_large_darkblue_link']")
         output = []
         for name in links:
@@ -185,6 +183,6 @@ def get_quote(_j):
         return state_mapping.get(state_name, "0")  # Default to empty value if not found
 
     login()
+    perform_search()
     driver.quit()
-    return perform_search()
-    
+
