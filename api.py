@@ -34,8 +34,8 @@ def get_state_code(state_name):
     return state_codes.get(state_name, "Invalid state name")
 
 def get_quote(_j):
-    company_name = _j["company"]["name"]
-    state_name = get_state_code(_j["company"]["owner"]["address"]["state_code"])
+    company_name = _j["company_name"]
+    state_name = get_state_code(_j["state_code"])
 
     # Configure options to use a real browser
     chrome_options = Options()
@@ -185,4 +185,3 @@ def get_quote(_j):
     login()
     perform_search()
     driver.quit()
-
